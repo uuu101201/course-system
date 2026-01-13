@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>課程報名</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>報名課程：{{ course.course_name }}</h2>
+    <p>日期：{{ course.course_date }}</p>
+    <p>時間：{{ course.course_time }}</p>
+    <p>剩餘名額：{{ course.remaining }}</p>
+
+    <form method="post">
+        姓名：<br>
+        <input name="name" required><br><br>
+
+        Email：<br>
+        <input name="email" type="email" required><br><br>
+
+        電話：<br>
+        <input name="phone" required><br><br>
+
+        <button>送出報名</button>
+    </form>
+
+    <br>
+    <a href="/">回月曆</a>
+</div>
+
+</body>
+</html>

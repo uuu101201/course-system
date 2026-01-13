@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>課程報名系統</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="topbar">
+        <h1>{{ year }} / {{ month }} 課程月曆</h1>
+
+        <!-- 月份切換 -->
+        <form method="get">
+            <input type="month" name="month" value="{{ month_str }}">
+            <button>切換月份</button>
+        </form>
+    </div>
+
+    <p>
+        <span class="badge">上午課程：藍色</span>
+        <span class="badge">下午課程：橘色</span>
+    </p>
+
+    <table>
+        <tr>
+            <th>一</th><th>二</th><th>三</th>
+            <th>四</th><th>五</th><th>六</th><th>日</th>
+        </tr>
+
+        {% for week in cal %}
+        <tr>
+            {% for day in week %}
+            <td style="width: 14.28%;">
+                {% if day != 0 %}
+                    <strong>{{ day }}</strong>
+
+                    {% for c in courses.get(day, []) %}
+                        <!-- ⭐ 依上午/下午套不同 class -->
+                        <div class="course-box {{ c.session_type }}">
+                            <div><strong>{{ c.course_name }}</strong></div>
+                            <div>🕒 {{ c.course_time }}</div>
+                            <div>剩餘：{{ c.remaining }}</div>
+
+                            {% if c.remaining > 0 %}
+                                <a href="/register/{{ c.id }}">報名</a>
+                            {% else %}
+                                <span class="full">額滿 🔒</span>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/login">管理者登入</a>
+</div>
+
+</body>
+</html>
