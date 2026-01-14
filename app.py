@@ -230,11 +230,12 @@ def delete_course(course_id):
     db.session.commit()
 
     return redirect("/admin")
+# ------------------------------
+# 程式啟動時，確保資料表存在
+# （本機 + Render 都會執行）
+# ------------------------------
+with app.app_context():
+    db.create_all()
 
-# ------------------------------
-# 程式進入點：建立資料表並啟動
-# ------------------------------
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+    app.run()
